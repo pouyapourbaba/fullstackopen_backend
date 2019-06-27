@@ -56,6 +56,16 @@ app.delete("/api/persons/:id", (req, res) => {
 // POST a new person
 app.post("/api/persons", (req, res) => {
   const id = Math.random() * 1000000;
+
+  // req must have name and number
+  if (!req.body.name || !req.body.number)
+    return res.status(404).json({ error: "name and number are required" });
+
+  // name must not already exist
+  const doseExists = persons.find(person => person.name === req.body.name);
+  if (doseExists) return res.status(400).json({ error: "name must be unique" });
+
+  // create a new person 
   const person = {
     name: req.body.name,
     number: req.body.number,
