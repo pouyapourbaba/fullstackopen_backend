@@ -24,6 +24,12 @@ const persons = [
   }
 ];
 
+// GET info
+app.get("/info", (req, res) => {
+  res.send(`Phonebook has info for ${persons.length} people \n${new Date()}`);
+});
+
+// GET all the persons
 app.get("/api/persons", (req, res) => {
   res.json(persons);
 });
